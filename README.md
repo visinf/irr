@@ -26,7 +26,7 @@ This code has been developed under Anaconda(Python 3.6), Pytorch 0.4.1 and CUDA 
 
    - Anaconda (Python 3.6)
    - __PyTorch 0.4.1__ (Linux, Conda, Python 3.6, CUDA 8.0)   
-     - For __PyTorch 1.1__, Python 3.7, CUDA >= 9.0, but the correlation module needs to be installed accordingly: 
+     - For __PyTorch 1.1__, Python 3.7, CUDA >= 9.0, the correlation module needs to be installed accordingly: 
         - Please move all files in `models/correlation_package_cu9` to `models/correlation_package` (overwritting)
         - Depending on your system, configure `-gencode`, `-ccbin`, `cuda-path` in `models/correlation_package/setup.py` accordingly
    - tqdm (`conda install -c conda-forge tqdm`)
