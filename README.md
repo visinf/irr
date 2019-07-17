@@ -17,7 +17,7 @@ Please cite the paper below if you find our paper and source codes are useful.
       Year = {2019}  
     }
 
-Contact: Junhwa Hur [fname.lname]@visinf.tu-darmstadt.de
+Contact: junhwa.hur[at]visinf.tu-darmstadt.de
 
 ## Getting started
 This code has been developed under Anaconda(Python 3.6), Pytorch 0.4.1 and CUDA 8.0 on Ubuntu 16.04.
@@ -25,7 +25,10 @@ This code has been developed under Anaconda(Python 3.6), Pytorch 0.4.1 and CUDA 
 1. Please install the followings:
 
    - Anaconda (Python 3.6)
-   - __PyTorch 0.4.1__ (Linux, Conda, Python 3.6, CUDA 8.0)
+   - __PyTorch 0.4.1__ (Linux, Conda, Python 3.6, CUDA 8.0)   
+     - For __PyTorch 1.1__, Python 3.7, CUDA >= 9.0, but the correlation module needs to be installed accordingly: 
+        - Please move all files in `models/correlation_package_cu9` to `models/correlation_package` (overwritting)
+        - Depending on your system, configure `-gencode`, `-ccbin`, `cuda-path` in `models/correlation_package/setup.py` accordingly
    - tqdm (`conda install -c conda-forge tqdm`)
 
 2. Then, install the correlation package:
