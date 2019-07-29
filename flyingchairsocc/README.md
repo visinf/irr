@@ -1,9 +1,9 @@
 # FlyingChairsOcc dataset
 
-![FlyingChairsOcc](https://github.com/visinf/irr/tree/master/flyingchairsocc/demo_img.png)
+<img src=demo_img.png>
 
-The FlyingChairsOcc dataset is an extended version of [The "Flying Chairs" Dataset](https://lmb.informatik.uni-freiburg.de/resources/datasets/FlyingChairs.en.html), including bi-directional optical flow ground truth and two occlusion maps for each image.
-You may find that another concurrent dataset, [The "Flying Chairs 2" Dataset](https://lmb.informatik.uni-freiburg.de/resources/datasets/FlyingChairs.en.html), is also useful.
+The FlyingChairsOcc dataset is an extended version of the [Flying Chairs Dataset](https://lmb.informatik.uni-freiburg.de/resources/datasets/FlyingChairs.en.html), including bi-directional optical flow ground truth and two occlusion maps for each image.
+You may find that another concurrent dataset, the [Flying Chairs 2 Dataset](https://lmb.informatik.uni-freiburg.de/resources/datasets/FlyingChairs.en.html), is also useful.
 
 
 ## Download link
