@@ -1,5 +1,7 @@
 # Iterative Residual Refinement <br/> for Joint Optical Flow and Occlusion Estimation
 
+<img src=output.gif>
+
 This repository is the PyTorch implementation of the paper:
 
 **Iterative Residual Refinement for Joint Optical Flow and Occlusion Estimation (CVPR 2019)**  
