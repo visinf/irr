@@ -19,7 +19,7 @@ This dataset is made freely available to academic and non-academic entities for 
 
 ## Download link
 
-<a href="https://www.dropbox.com/s/x13u3nd2p5r5rz0/FlyingChairsOcc.tar.gz?dl=0" target="_blank"><b>Download</b></a>
+<a href="https://download.visinf.tu-darmstadt.de/data/flyingchairs_occ/FlyingChairsOcc.tar.gz" target="_blank"><b>Download</b></a>
 (82GB)
 
 

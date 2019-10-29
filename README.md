@@ -40,9 +40,10 @@ This code has been developed under Anaconda(Python 3.6), Pytorch 0.4.1 and CUDA 
 
 3. The datasets used for this projects are followings:
     - [FlyingChairsOcc dataset](https://github.com/visinf/irr/tree/master/flyingchairsocc)
-    - [MPI Sintel Dataset](http://sintel.is.tue.mpg.de/downloads) + [revised occlusion GT](https://www.dropbox.com/s/kwx1s5a8g7r0t2y/occlusions_rev.zip)
-    - [KITTI Optical Flow 2015](http://www.cvlibs.net/datasets/kitti/eval_scene_flow.php?benchmark=flow) and [KITTI Optical Flow 2012](http://www.cvlibs.net/datasets/kitti/eval_stereo_flow.php?benchmark=flow)
     - [FlyingThings3D subset](https://lmb.informatik.uni-freiburg.de/resources/datasets/SceneFlowDatasets.en.html)
+    - [MPI Sintel Dataset](http://sintel.is.tue.mpg.de/downloads) + [revised occlusion GT](https://download.visinf.tu-darmstadt.de/data/flyingchairs_occ/occlusions_rev.zip)
+    - [KITTI Optical Flow 2015](http://www.cvlibs.net/datasets/kitti/eval_scene_flow.php?benchmark=flow) and [KITTI Optical Flow 2012](http://www.cvlibs.net/datasets/kitti/eval_stereo_flow.php?benchmark=flow)
+    
 
   
 ## Training
