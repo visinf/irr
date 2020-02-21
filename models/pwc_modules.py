@@ -53,8 +53,8 @@ def rescale_flow(flow, div_flow, width_im, height_im, to_local=True):
         v_scale = float(height_im * div_flow / flow.size(2))
 
     u, v = flow.chunk(2, dim=1)
-    u = u * u_scale
-    v = v * v_scale
+    u *= u_scale
+    v *= v_scale
 
     return torch.cat([u, v], dim=1)
 
