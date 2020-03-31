@@ -255,7 +255,7 @@ class RandomAffineFlow(nn.Module):
             squeeze.uniform_(min_squeeze, max_squeeze)
             tx.uniform_(-max_translate, max_translate)
             ty.uniform_(-max_translate, max_translate)
-            phi.uniform_(-min_rotate, max_rotate)
+            phi.uniform_(min_rotate, max_rotate)
 
             # construct affine parameters
             sx = zoom * squeeze
@@ -492,7 +492,7 @@ class RandomAffineFlowOcc(nn.Module):
             squeeze.uniform_(min_squeeze, max_squeeze)
             tx.uniform_(-max_translate, max_translate)
             ty.uniform_(-max_translate, max_translate)
-            phi.uniform_(-min_rotate, max_rotate)
+            phi.uniform_(min_rotate, max_rotate)
 
             # construct affine parameters
             sx = zoom * squeeze
@@ -780,7 +780,7 @@ class RandomAffineFlowOccSintel(nn.Module):
             squeeze.uniform_(min_squeeze, max_squeeze)
             tx.uniform_(-max_translate, max_translate)
             ty.uniform_(-max_translate, max_translate)
-            phi.uniform_(-min_rotate, max_rotate)
+            phi.uniform_(min_rotate, max_rotate)
 
             # construct affine parameters
             sx = zoom * squeeze
@@ -1059,7 +1059,7 @@ class RandomAffineFlowOccKITTI(nn.Module):
             squeeze.uniform_(min_squeeze, max_squeeze)
             tx.uniform_(-max_translate, max_translate)
             ty.uniform_(-max_translate, max_translate)
-            phi.uniform_(-min_rotate, max_rotate)
+            phi.uniform_(min_rotate, max_rotate)
 
             # construct affine parameters
             sx = zoom * squeeze
