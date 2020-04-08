@@ -86,11 +86,11 @@ def configure_runtime_augmentations(args):
             logging.info("training_augmentation: None")
 
         # ----------------------------------------------------
-        # Training Augmentation
+        # Validation Augmentation
         # ----------------------------------------------------
         if args.validation_augmentation is not None:
             kwargs = tools.kwargs_from_args(args, "validation_augmentation")
-            logging.info("validation_augmentation: %s" % args.training_augmentation)
+            logging.info("validation_augmentation: %s" % args.validation_augmentation)
             for param, default in sorted(kwargs.items()):
                 logging.info("  %s: %s" % (param, default))
             kwargs["args"] = args

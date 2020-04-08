@@ -66,5 +66,5 @@ The scripts for testing the pre-trained models are located in `scripts/validatio
 
 ## Acknowledgement
 
-Portions of the source code (e.g., training pipeline, runtime, argument parser, and logger) are from [Jochen Gast](https://www.visinf.tu-darmstadt.de/team_members/jgast/jgast.en.jsp)
+Portions of the source code (e.g., training pipeline, runtime, argument parser, and logger) are from [Jochen Gast](https://scholar.google.com/citations?user=tmRcFacAAAAJ&hl=en)
 
