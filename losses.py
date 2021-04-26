@@ -3,9 +3,6 @@ from __future__ import absolute_import, division, print_function
 import torch
 import torch.nn as nn
 import torch.nn.functional as tf
-import scipy.misc
-import os
-import numpy as np
 
 
 def _elementwise_epe(input_flow, target_flow):
@@ -196,7 +193,7 @@ class MultiScaleEPE_FlowNet_IRR_Occ(nn.Module):
 
             f_loss = flow_loss.detach()
             o_loss = occ_loss.detach()
-            if (f_loss.data > o_loss.data).numpy:
+            if f_loss > o_loss:
                 f_l_w = 1
                 o_l_w = f_loss / o_loss
             else:
@@ -262,7 +259,7 @@ class MultiScaleEPE_FlowNet_IRR_Bi_Occ(nn.Module):
 
             f_loss = flow_loss.detach()
             o_loss = occ_loss.detach()
-            if (f_loss.data > o_loss.data).numpy:
+            if f_loss > o_loss:
                 f_l_w = 1
                 o_l_w = f_loss / o_loss
             else:
@@ -326,7 +323,7 @@ class MultiScaleEPE_FlowNet_IRR_Bi_Occ_upsample(nn.Module):
 
             f_loss = flow_loss.detach()
             o_loss = occ_loss.detach()
-            if (f_loss.data > o_loss.data).numpy:
+            if f_loss > o_loss:
                 f_l_w = 1
                 o_l_w = f_loss / o_loss
             else:
@@ -440,7 +437,7 @@ class MultiScaleEPE_PWC_Occ(nn.Module):
 
             f_loss = flow_loss.detach()
             o_loss = occ_loss.detach()
-            if (f_loss.data > o_loss.data).numpy:
+            if f_loss > o_loss:
                 f_l_w = 1
                 o_l_w = f_loss / o_loss
             else:
@@ -498,7 +495,7 @@ class MultiScaleEPE_PWC_Bi_Occ(nn.Module):
 
             f_loss = flow_loss.detach()
             o_loss = occ_loss.detach()
-            if (f_loss.data > o_loss.data).numpy:
+            if f_loss > o_loss:
                 f_l_w = 1
                 o_l_w = f_loss / o_loss
             else:
@@ -562,7 +559,7 @@ class MultiScaleEPE_PWC_Bi_Occ_upsample(nn.Module):
 
             f_loss = flow_loss.detach()
             o_loss = occ_loss.detach()
-            if (f_loss.data > o_loss.data).numpy:
+            if f_loss > o_loss:
                 f_l_w = 1
                 o_l_w = f_loss / o_loss
             else:
@@ -623,7 +620,7 @@ class MultiScaleEPE_PWC_Bi_Occ_upsample_Sintel(nn.Module):
 
             f_loss = flow_loss.detach()
             o_loss = occ_loss.detach()
-            if (f_loss.data > o_loss.data).numpy:
+            if f_loss > o_loss:
                 f_l_w = 1
                 o_l_w = f_loss / o_loss
             else:
