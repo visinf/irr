@@ -29,7 +29,7 @@ This code has been orginally developed under Anaconda(Python 3.6), PyTorch 0.4.1
    - Anaconda
    - PyTorch (now compatible with __PyTorch 1.5.0__)
    - tqdm (`conda install -c conda-forge tqdm==4.40.0`)
-   - (any missing packages that the code require)
+   - (any missing packages that the code requires)
 
 
 2. The datasets used for this projects are followings:
