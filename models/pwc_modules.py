@@ -39,6 +39,29 @@ def initialize_msra(modules):
             pass
 
 
+def compute_cost_volume(feat1, feat2, param_dict):
+    """
+    only implemented for:
+        kernel_size = 1
+        stride1 = 1
+        stride2 = 1
+    """
+
+    max_disp = param_dict["max_disp"]
+
+    _, _, height, width = feat1.size()
+    num_shifts = 2 * max_disp + 1
+    feat2_padded = tf.pad(feat2, (max_disp, max_disp, max_disp, max_disp), "constant", 0)
+
+    cost_list = []
+    for i in range(num_shifts):
+        for j in range(num_shifts):
+            corr = torch.mean(feat1 * feat2_padded[:, :, i:(height + i), j:(width + j)], axis=1, keepdims=True)
+            cost_list.append(corr)
+    cost_volume = torch.cat(cost_list, axis=1)
+    return cost_volume
+
+
 def upsample2d_as(inputs, target_as, mode="bilinear"):
     _, _, h, w = target_as.size()
     return tf.interpolate(inputs, [h, w], mode=mode, align_corners=True)
@@ -101,10 +124,10 @@ class WarpingLayer(nn.Module):
         flo_list.append(flo_h)
         flow_for_grid = torch.stack(flo_list).transpose(0, 1)
         grid = torch.add(get_grid(x), flow_for_grid).transpose(1, 2).transpose(2, 3)        
-        x_warp = tf.grid_sample(x, grid)
+        x_warp = tf.grid_sample(x, grid, align_corners=True)
 
         mask = torch.ones(x.size(), requires_grad=False).cuda()
-        mask = tf.grid_sample(mask, grid)
+        mask = tf.grid_sample(mask, grid, align_corners=True)
         mask = (mask >= 1.0).float()
 
         return x_warp * mask

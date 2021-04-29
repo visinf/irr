@@ -22,23 +22,17 @@ Please cite the paper below if you find our paper and source codes are useful.
 Contact: junhwa.hur[at]visinf.tu-darmstadt.de
 
 ## Getting started
-This code has been developed under Anaconda(Python 3.6), Pytorch 0.4.1 and CUDA 8.0 on Ubuntu 16.04.
+This code has been orginally developed under Anaconda(Python 3.6), PyTorch 0.4.1 and CUDA 8.0 on Ubuntu 16.04.
 
 1. Please install the followings:
 
-   - Anaconda (Python 3.6)
-   - __PyTorch 0.4.1__ (Linux, Conda, Python 3.6, CUDA 8.0)   
-     - For __PyTorch 1.1__, Python 3.7, CUDA >= 9.0, the correlation module needs to be installed accordingly: 
-        - Please move all files in `models/correlation_package_cu9` to `models/correlation_package` (overwritting)
-        - Depending on your system, configure `-gencode`, `-ccbin`, `cuda-path` in `models/correlation_package/setup.py` accordingly
-   - tqdm (`conda install -c conda-forge tqdm`)
+   - Anaconda
+   - PyTorch (now compatible with __PyTorch 1.5.0__)
+   - tqdm (`conda install -c conda-forge tqdm==4.40.0`)
+   - (any missing packages that the code require)
 
-2. Then, install the correlation package:
-   ```
-   ./install.sh
-   ```
 
-3. The datasets used for this projects are followings:
+2. The datasets used for this projects are followings:
     - [FlyingChairsOcc dataset](https://github.com/visinf/irr/tree/master/flyingchairsocc)
     - [FlyingThings3D subset](https://lmb.informatik.uni-freiburg.de/resources/datasets/SceneFlowDatasets.en.html)
     - [MPI Sintel Dataset](http://sintel.is.tue.mpg.de/downloads) + [revised occlusion GT](https://download.visinf.tu-darmstadt.de/data/flyingchairs_occ/occlusions_rev.zip)

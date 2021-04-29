@@ -523,19 +523,9 @@ def exec_runtime(args,
     for epoch in range(args.start_epoch, args.total_epochs + 1):
         with logger.LoggingBlock("Epoch %i/%i" % (epoch, args.total_epochs), emph=True):
 
-            # --------------------------------------------------------
-            # Update standard learning scheduler
-            # --------------------------------------------------------
-            if lr_scheduler is not None and not validation_scheduler:
-                lr_scheduler.step(epoch)
-
-            # --------------------------------------------------------
             # Always report learning rate
-            # --------------------------------------------------------
-            if lr_scheduler is None:
-                logging.info("lr: %s" % format_learning_rate(args.optimizer_lr))
-            else:
-                logging.info("lr: %s" % format_learning_rate(lr_scheduler.get_lr()))
+            if lr_scheduler is not None:
+                logging.info("lr: %s" % format_learning_rate(lr_scheduler.get_last_lr()))
 
             # -------------------------------------------
             # Create and run a training epoch
@@ -575,11 +565,9 @@ def exec_runtime(args,
                 if store_as_best:
                     best_validation_loss = validation_loss
 
-                # ----------------------------------------------------------------
-                # Update validation scheduler, if one is in place
-                # ----------------------------------------------------------------
-                if lr_scheduler is not None and validation_scheduler:
-                    lr_scheduler.step(validation_loss, epoch=epoch)
+            # Update standard learning scheduler
+            if lr_scheduler is not None:
+                lr_scheduler.step()
 
             # ----------------------------------------------------------------
             # Also show best loss on total_progress
@@ -609,7 +597,7 @@ def exec_runtime(args,
             # Vertical space between epochs
             # ----------------------------------------------------------------
             print(''), logging.logbook('')
-
+            
     # ----------------------------------------------------------------
     # Finish
     # ----------------------------------------------------------------

@@ -4,7 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 import torch
 import numpy as np
-from scipy import ndimage
+import skimage.io as io
 
 
 def numpy2torch(array):
@@ -28,15 +28,15 @@ def read_flo_as_float32(filename):
 
 
 def read_occ_image_as_float32(filename):
-    occ = ndimage.imread(filename).astype(np.float32) / np.float32(255.0)
+    occ = io.imread(filename).astype(np.float32) / np.float32(255.0)
     if occ.ndim == 3:
         occ = occ[:, :, 0]
     return occ
 
 
 def read_image_as_float32(filename):
-    return ndimage.imread(filename).astype(np.float32) / np.float32(255.0)
+    return io.imread(filename).astype(np.float32) / np.float32(255.0)
 
 
 def read_image_as_byte(filename):
-    return ndimage.imread(filename)
+    return io.imread(filename)

@@ -20,22 +20,22 @@ class Meshgrid(nn.Module):
         super(Meshgrid, self).__init__()
         self.width = 0
         self.height = 0
-        self.register_buffer("xx", torch.zeros(1,1))
-        self.register_buffer("yy", torch.zeros(1,1))
-        self.register_buffer("rangex", torch.zeros(1,1))
-        self.register_buffer("rangey", torch.zeros(1,1))
+        self.xx = None
+        self.yy = None
 
     def _compute_meshgrid(self, width, height):
-        torch.arange(0, width, out=self.rangex)
-        torch.arange(0, height, out=self.rangey)
-        self.xx = self.rangex.repeat(height, 1).contiguous()
-        self.yy = self.rangey.repeat(width, 1).t().contiguous()
-
-    def forward(self, width, height):
+        rangex = torch.arange(0, width)
+        rangey = torch.arange(0, height)
+        self.xx = rangex.repeat(height, 1).contiguous()
+        self.yy = rangey.repeat(width, 1).t().contiguous()
+        
+    def forward(self, width, height, device=None, dtype=None):
         if self.width != width or self.height != height:
             self._compute_meshgrid(width=width, height=height)
             self.width = width
             self.height = height
+        self.xx = self.xx.to(device=device, dtype=dtype)
+        self.yy = self.yy.to(device=device, dtype=dtype)
         return self.xx, self.yy
 
 

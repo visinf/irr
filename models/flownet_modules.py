@@ -102,6 +102,6 @@ class WarpingLayer(nn.Module):
         flo_list.append(flo_h)
         flow_for_grid = torch.stack(flo_list).transpose(0, 1)
         grid = torch.add(get_grid(x), flow_for_grid).transpose(1, 2).transpose(2, 3)
-        x_warp = tf.grid_sample(x, grid)
+        x_warp = tf.grid_sample(x, grid, align_corners=True)
 
         return x_warp

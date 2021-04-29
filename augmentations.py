@@ -148,7 +148,7 @@ class RandomAffineFlow(nn.Module):
         self.register_buffer("_ybounds", torch.FloatTensor([-1, 1, -1, 1]))
 
     def inverse_transform_coords(self, width, height, thetas, offset_x=None, offset_y=None):
-        xx, yy = self._meshgrid(width=width, height=height)
+        xx, yy = self._meshgrid(width=width, height=height, device=thetas.device, dtype=thetas.dtype)
 
         xx = torch.unsqueeze(xx, dim=0).float()
         yy = torch.unsqueeze(yy, dim=0).float()
@@ -172,7 +172,7 @@ class RandomAffineFlow(nn.Module):
         return xq, yq
 
     def transform_coords(self, width, height, thetas):
-        xx1, yy1 = self._meshgrid(width=width, height=height)
+        xx1, yy1 = self._meshgrid(width=width, height=height, device=thetas.device, dtype=thetas.dtype)
         xx, yy = normalize_coords(xx1, yy1, width=width, height=height)
 
         def _unsqueeze12(u):
@@ -385,7 +385,7 @@ class RandomAffineFlowOcc(nn.Module):
         self.register_buffer("_y", torch.IntTensor(1))
 
     def inverse_transform_coords(self, width, height, thetas, offset_x=None, offset_y=None):
-        xx, yy = self._meshgrid(width=width, height=height)
+        xx, yy = self._meshgrid(width=width, height=height, device=thetas.device, dtype=thetas.dtype)
 
         xx = torch.unsqueeze(xx, dim=0).float()
         yy = torch.unsqueeze(yy, dim=0).float()
@@ -409,7 +409,7 @@ class RandomAffineFlowOcc(nn.Module):
         return xq, yq
 
     def transform_coords(self, width, height, thetas):
-        xx1, yy1 = self._meshgrid(width=width, height=height)
+        xx1, yy1 = self._meshgrid(width=width, height=height, device=thetas.device, dtype=thetas.dtype)
         xx, yy = normalize_coords(xx1, yy1, width=width, height=height)
 
         def _unsqueeze12(u):
@@ -508,7 +508,7 @@ class RandomAffineFlowOcc(nn.Module):
 
             theta_transform = torch.cat([b1, b2, b3, b4, b5, b6], dim=1)
             theta_try = apply_transform_to_params(theta0, theta_transform)
-            thetas = invalid.float() * theta_try + (1 - invalid).float() * thetas
+            thetas = invalid.float() * theta_try + (1. - invalid.float()) * thetas
 
             # compute new invalid ones
             invalid = self.find_invalid(width=width, height=height, thetas=thetas)
@@ -550,7 +550,7 @@ class RandomAffineFlowOcc(nn.Module):
         _, _, height, width = flow.size()
         u = flow[:, 0, :, :]
         v = flow[:, 1, :, :]
-        xx, yy = self._meshgrid(width=width, height=height)
+        xx, yy = self._meshgrid(width=width, height=height, device=flow.device, dtype=flow.dtype)
         xx = torch.unsqueeze(xx, dim=0).float()
         yy = torch.unsqueeze(yy, dim=0).float()
         xx = xx.expand(batch_size, -1, -1) + u
@@ -673,7 +673,7 @@ class RandomAffineFlowOccSintel(nn.Module):
         self.register_buffer("_y", torch.IntTensor(1))
 
     def inverse_transform_coords(self, width, height, thetas, offset_x=None, offset_y=None):
-        xx, yy = self._meshgrid(width=width, height=height)
+        xx, yy = self._meshgrid(width=width, height=height, device=thetas.device, dtype=thetas.dtype)
 
         xx = torch.unsqueeze(xx, dim=0).float()
         yy = torch.unsqueeze(yy, dim=0).float()
@@ -697,7 +697,7 @@ class RandomAffineFlowOccSintel(nn.Module):
         return xq, yq
 
     def transform_coords(self, width, height, thetas):
-        xx1, yy1 = self._meshgrid(width=width, height=height)
+        xx1, yy1 = self._meshgrid(width=width, height=height, device=thetas.device, dtype=thetas.dtype)
         xx, yy = normalize_coords(xx1, yy1, width=width, height=height)
 
         def _unsqueeze12(u):
@@ -838,9 +838,9 @@ class RandomAffineFlowOccSintel(nn.Module):
         _, _, height, width = flow.size()
         u = flow[:, 0, :, :]
         v = flow[:, 1, :, :]
-        xx, yy = self._meshgrid(width=width, height=height)
-        xx = torch.unsqueeze(xx, dim=0).float()
-        yy = torch.unsqueeze(yy, dim=0).float()
+        xx, yy = self._meshgrid(width=width, height=height, device=flow.device, dtype=flow.dtype)
+        xx = torch.unsqueeze(xx, dim=0)
+        yy = torch.unsqueeze(yy, dim=0)
         xx = xx.expand(batch_size, -1, -1) + u
         yy = yy.expand(batch_size, -1, -1) + v
 
@@ -952,7 +952,7 @@ class RandomAffineFlowOccKITTI(nn.Module):
         self.register_buffer("_y", torch.IntTensor(1))
 
     def inverse_transform_coords(self, width, height, thetas, offset_x=None, offset_y=None):
-        xx, yy = self._meshgrid(width=width, height=height)
+        xx, yy = self._meshgrid(width=width, height=height, device=thetas.device, dtype=thetas.dtype)
 
         xx = torch.unsqueeze(xx, dim=0).float()
         yy = torch.unsqueeze(yy, dim=0).float()
@@ -976,7 +976,7 @@ class RandomAffineFlowOccKITTI(nn.Module):
         return xq, yq
 
     def transform_coords(self, width, height, thetas):
-        xx1, yy1 = self._meshgrid(width=width, height=height)
+        xx1, yy1 = self._meshgrid(width=width, height=height, device=thetas.device, dtype=thetas.dtype)
         xx, yy = normalize_coords(xx1, yy1, width=width, height=height)
 
         def _unsqueeze12(u):
@@ -1118,7 +1118,7 @@ class RandomAffineFlowOccKITTI(nn.Module):
         _, _, height, width = flow.size()
         u = flow[:, 0, :, :]
         v = flow[:, 1, :, :]
-        xx, yy = self._meshgrid(width=width, height=height)
+        xx, yy = self._meshgrid(width=width, height=height, device=flow.device, dtype=flow.dtype)
         xx = torch.unsqueeze(xx, dim=0).float()
         yy = torch.unsqueeze(yy, dim=0).float()
         xx = xx.expand(batch_size, -1, -1) + u
