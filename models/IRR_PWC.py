@@ -6,7 +6,6 @@ import torch.nn as nn
 from .pwc_modules import conv, upsample2d_as, rescale_flow, initialize_msra, compute_cost_volume
 from .pwc_modules import WarpingLayer, FeatureExtractor, ContextNetwork, FlowEstimatorDense, OccContextNetwork, OccEstimatorDense
 from .irr_modules import OccUpsampleNetwork, RefineFlow, RefineOcc
-# from .correlation_package.correlation import Correlation
 import copy
 
 
@@ -88,8 +87,6 @@ class PWCNet(nn.Module):
                     x1_warp = self.warping_layer(x1, flow_b, height_im, width_im, self._div_flow)
 
                 # correlation
-                # out_corr_f = Correlation(pad_size=self.search_range, kernel_size=1, max_displacement=self.search_range, stride1=1, stride2=1, corr_multiply=1)(x1, x2_warp)
-                # out_corr_b = Correlation(pad_size=self.search_range, kernel_size=1, max_displacement=self.search_range, stride1=1, stride2=1, corr_multiply=1)(x2, x1_warp)
                 out_corr_f = compute_cost_volume(x1, x2_warp, self.corr_params)
                 out_corr_b = compute_cost_volume(x2, x1_warp, self.corr_params)
 

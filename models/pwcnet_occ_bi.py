@@ -3,9 +3,8 @@ from __future__ import absolute_import, division, print_function
 import torch
 import torch.nn as nn
 
-from .pwc_modules import upsample2d_as, initialize_msra
+from .pwc_modules import upsample2d_as, initialize_msra, compute_cost_volume
 from .pwc_modules import WarpingLayer, FeatureExtractor, FlowEstimatorDense, ContextNetwork, OccEstimatorDense, OccContextNetwork
-from .correlation_package.correlation import Correlation
 
 class PWCNet(nn.Module):
     def __init__(self, args, div_flow=0.05):
@@ -42,7 +41,9 @@ class PWCNet(nn.Module):
 
         self.context_networks = ContextNetwork(self.dim_corr + 32 + 2 + 448 + 2)
         self.context_networks_occ = OccContextNetwork(self.dim_corr + 32 + 1 + 448 + 1)
-
+        
+        self.corr_params = {"pad_size": self.search_range, "kernel_size": 1, "max_disp": self.search_range, "stride1": 1, "stride2": 1, "corr_multiply": 1}
+        
         initialize_msra(self.modules())
 
     def forward(self, input_dict):
@@ -84,8 +85,8 @@ class PWCNet(nn.Module):
                 x1_warp = self.warping_layer(x1, flow_b, height_im, width_im, self._div_flow)
 
             # correlation
-            out_corr_f = Correlation(pad_size=self.search_range, kernel_size=1, max_displacement=self.search_range, stride1=1, stride2=1, corr_multiply=1)(x1, x2_warp)
-            out_corr_b = Correlation(pad_size=self.search_range, kernel_size=1, max_displacement=self.search_range, stride1=1, stride2=1, corr_multiply=1)(x2, x1_warp)            
+            out_corr_f = compute_cost_volume(x1, x2_warp, self.corr_params)
+            out_corr_b = compute_cost_volume(x2, x1_warp, self.corr_params)
             out_corr_relu_f = self.leakyRELU(out_corr_f)
             out_corr_relu_b = self.leakyRELU(out_corr_b)
 
